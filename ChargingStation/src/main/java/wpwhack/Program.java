@@ -30,8 +30,8 @@ public class Program {
             wpw.setup("Producer Example", "Example WorldpayWithin producer");
 
             WWService svc = new WWService();
-            svc.setName("Car charger");
-            svc.setDescription("Can charge your hybrid / electric car");
+            svc.setName("TEAM3 Charger");
+            svc.setDescription("Can charge your Bike");
             svc.setId(1);
             svc.setServiceType("Charger");
 
