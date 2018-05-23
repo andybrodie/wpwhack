@@ -1,0 +1,12 @@
+{
+  "port": 10002,
+  "host": "127.0.0.1",
+  "pspConfig": {
+    "psp_name": "worldpayonlinepayments",
+    "hte_public_key": "T_C_03280161-5475-44fb-87a4-0a46b7b0d2b3",
+    "hte_private_key": "T_S_e30c899f-6079-4774-bd87-98d58d0ed446",
+    "api_endpoint": "https://api.worldpay.com/v1",
+    "merchant_client_key": "T_C_03280161-5475-44fb-87a4-0a46b7b0d2b3",
+    "merchant_service_key": "T_S_e30c899f-6079-4774-bd87-98d58d0ed446"
+  }
+}
