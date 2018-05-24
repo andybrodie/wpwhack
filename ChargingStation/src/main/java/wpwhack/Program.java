@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -84,7 +83,7 @@ public class Program {
                 hasQuit = true;
             }
             if (s.startsWith("S ")) {
-                int newPrice = parsePrice(s);
+                int newPrice = parseInt(s);
                 System.out.println("Changing solar price to " + newPrice);
                 stop(wpw, t);
                 elecService = createElectricityService(GRID_PRICE, newPrice);
@@ -102,7 +101,7 @@ public class Program {
         return t;
     }
 
-    private int parsePrice(String s) {
+    private int parseInt(String s) {
         return Integer.parseInt(s.substring(s.indexOf(" ") + 1));
     }
 
@@ -258,7 +257,7 @@ public class Program {
         public void onServiceTotalPriceEvent(String remoteAddr, int serviceId, WWTotalPriceResponse t)
                 throws WPWithinGeneralException {
             System.out.printf("Event: onServiceTotalPriceEvent(remoteAddr:%s, serviceId:%d)\n", remoteAddr, serviceId);
-            System.out.printf("\t(clientId:sd, currentCode:%s, merchantClientKey:%s, paymentReferenceId:%s, serverId:%s, totalPrice:%d, unitsToSupply:%d, priceId:%d",
+            System.out.printf("\t(clientId:%s, currentCode:%s, merchantClientKey:%s, paymentReferenceId:%s, serverId:%s, totalPrice:%d, unitsToSupply:%d, priceId:%d",
                     t.getClientId(), t.getCurrencyCode(), t.getMerchantClientKey(), t.getPaymentReferenceId(),
                     t.getServerId(), t.getTotalPrice(), t.getUnitsToSupply(), t.getPriceId());
         }
