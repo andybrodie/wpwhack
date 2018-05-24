@@ -46,9 +46,9 @@ public class Program {
         //services.stream().filter(t -> t.getName()=="Charging Service")
 
         if (stationNo == 1) {
-            elecService = createElectricityService(GRID_PRICE, 50);
+            elecService = createElectricityService(GRID_PRICE, 5);
         } else {
-            elecService = createElectricityService(GRID_PRICE, 100);
+            elecService = createElectricityService(GRID_PRICE, 10);
         }
 
         wpw = createWrapper(stationNo, hireService, elecService);
