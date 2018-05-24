@@ -1,0 +1,17 @@
+{
+	"port": 10001,
+	"host": "127.0.0.1",
+	"hceCard": {
+		"firstName": "Joe",
+		"lastName": "Bloggs",
+		"expMonth": 12,
+		"expYear": 2020,
+		"cardNumber": "34343434343434",
+		"type": "Card",
+		"cvc": "123"
+	},
+	"pspConfig": {
+		"psp_name": "worldpayonlinepayments",
+		"api_endpoint": "https://api.worldpay.com/v1"
+	}
+}

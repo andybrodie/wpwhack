@@ -1,12 +1,12 @@
 package wpwhack;
 
 import com.google.gson.Gson;
+import com.worldpay.innovation.wpwithin.WPWithinGeneralException;
 import com.worldpay.innovation.wpwithin.WPWithinWrapper;
 import com.worldpay.innovation.wpwithin.WPWithinWrapperImpl;
+import com.worldpay.innovation.wpwithin.eventlistener.EventListener;
 import com.worldpay.innovation.wpwithin.rpc.launcher.Listener;
-import com.worldpay.innovation.wpwithin.types.WWPrice;
-import com.worldpay.innovation.wpwithin.types.WWPricePerUnit;
-import com.worldpay.innovation.wpwithin.types.WWService;
+import com.worldpay.innovation.wpwithin.types.*;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -21,12 +21,12 @@ public class Program {
     private static Config config;
     private static String rpcLogFile;
 
-    private static WWService elecService;
-    private static WWService hireService = createHireService();
-    private static WPWithinWrapper wpw;
+    private WWService elecService;
+    private WWService hireService = createHireService();
+    private WPWithinWrapper wpw;
 
     public static void main(String[] args) throws Exception {
-d
+
         if (args.length == 0) {
             System.err.println("Pass parameter whether this is charging station 1 or 2");
             return;
@@ -35,6 +35,11 @@ d
         System.out.println("Starting charging station " + stationNo);
         loadConfig();
 
+        new Program().go(stationNo);
+
+    }
+
+    private void go(int stationNo) throws Exception {
         // Hire service never changes and never needs to be regenerated.
         if (stationNo == 1) {
             elecService = createElectricityService(GRID_PRICE, 50);
@@ -47,8 +52,10 @@ d
         mainLoop(stationNo);
     }
 
-    private static WPWithinWrapper createWrapper(int stationNo, WWService hireService, WWService elecService) {
-        WPWithinWrapper wpw = new WPWithinWrapperImpl(config.getHost(), config.getPort() + (stationNo * 10), true, rpcAgentListener, rpcLogFile);
+    private  WPWithinWrapper createWrapper(int stationNo, WWService hireService, WWService elecService) {
+        WPWithinWrapper wpw = new WPWithinWrapperImpl(config.getHost(), config.getPort() + (stationNo * 10), true,
+                wpWithinEventListener, config.getPort() + 1,
+                rpcAgentListener, rpcLogFile);
 
         wpw.setup("TEAM3CS" + stationNo, "TEAM3's Charging Station No. " + stationNo);
         wpw.addService(elecService);
@@ -57,7 +64,7 @@ d
         return wpw;
     }
 
-    private static void mainLoop(int stationNo) throws Exception {
+    private void mainLoop(int stationNo) throws Exception {
         boolean hasQuit = false;
 
         Thread t = start(wpw);
@@ -66,7 +73,7 @@ d
             printMenu();
 
             Scanner sc = new Scanner(System.in);
-            String s = sc.nextLine();
+            String s = sc.nextLine().toUpperCase();
             if ("X".equals(s)) {
                 stop(wpw, t);
                 hasQuit = true;
@@ -82,7 +89,7 @@ d
         }
     }
 
-    private static Thread start(WPWithinWrapper wpw) {
+    private Thread start(WPWithinWrapper wpw) {
         Thread t = new Thread(() -> {
             wpw.startServiceBroadcast(0);
         });
@@ -90,17 +97,18 @@ d
         return t;
     }
 
-    private static int parsePrice(String s) {
-        return Integer.parseInt(s.substring(s.indexOf(" ")+1));
+    private int parsePrice(String s) {
+        return Integer.parseInt(s.substring(s.indexOf(" ") + 1));
     }
 
-    private static void stop(WPWithinWrapper wpw, Thread t) throws Exception {
+    private void stop(WPWithinWrapper wpw, Thread t) throws Exception {
         wpw.stopServiceBroadcast();
+        ((WPWithinWrapperImpl) wpw).eventServer.stop();
         wpw.stopRPCAgent();
         t.join();
     }
 
-    private static void printMenu() {
+    private void printMenu() {
         System.out.println("MENU:");
         String[] menuItems = new String[]{
                 "X = Exit",
@@ -113,7 +121,7 @@ d
 
     }
 
-    private static WWService createHireService() {
+    private WWService createHireService() {
         WWService svc = createService("Hire Charge",
                 "Pay to hire a bike from this charging service",
                 2,
@@ -129,7 +137,7 @@ d
         return svc;
     }
 
-    private static WWService createDistanceService() {
+    private WWService createDistanceService() {
         WWService svc = createService("Standing Charge",
                 "Bike Standing charge",
                 2,
@@ -145,7 +153,7 @@ d
         return svc;
     }
 
-    private static WWService createElectricityService(int gridPrice, int solarPrice) {
+    private WWService createElectricityService(int gridPrice, int solarPrice) {
         WWService svc = createService("Electricity Provision",
                 "Provide electricity",
                 1,
@@ -160,7 +168,7 @@ d
         return svc;
     }
 
-    private static WWPrice addPrice(int id, String description, String unitDescription, int unitId, int amount, String currency) {
+    private WWPrice addPrice(int id, String description, String unitDescription, int unitId, int amount, String currency) {
         WWPrice ccPrice = new WWPrice();
         ccPrice.setId(id);
         ccPrice.setDescription(description);
@@ -173,7 +181,7 @@ d
         return ccPrice;
     }
 
-    private static WWService createService(String name, String description, int id, String serviceType) {
+    private WWService createService(String name, String description, int id, String serviceType) {
         WWService svc = new WWService();
         svc.setId(id);
         svc.setName(name);
@@ -182,7 +190,7 @@ d
         return svc;
     }
 
-    private static final Listener rpcAgentListener = new Listener() {
+    private final Listener rpcAgentListener = new Listener() {
         @Override
         public void onApplicationExit(int exitCode, String stdOutput, String errOutput) {
 
@@ -206,4 +214,77 @@ d
         String result = new BufferedReader(new InputStreamReader(stream)).lines().collect(Collectors.joining("\n"));
         config = gson.fromJson(result, Config.class);
     }
+
+    private EventListener wpWithinEventListener = new EventListener() {
+
+        @Override
+        public void onBeginServiceDelivery(int serviceID, int servicePriceID,
+                                           WWServiceDeliveryToken wwServiceDeliveryToken, int unitsToSupply) throws WPWithinGeneralException {
+
+            try {
+                System.out.println("event from core - onBeginServiceDelivery()");
+                System.out.printf("ServiceID: %d\n", serviceID);
+                System.out.printf("UnitsToSupply: %d\n", unitsToSupply);
+                System.out.printf("SDT.Key: %s\n", wwServiceDeliveryToken.getKey());
+                System.out.printf("SDT.Expiry: %s\n", wwServiceDeliveryToken.getExpiry());
+                System.out.printf("SDT.Issued: %s\n", wwServiceDeliveryToken.getIssued());
+                System.out.printf("SDT.Signature: %s\n", wwServiceDeliveryToken.getSignature());
+                System.out.printf("SDT.RefundOnExpiry: %b\n", wwServiceDeliveryToken.isRefundOnExpiry());
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onEndServiceDelivery(int serviceID, WWServiceDeliveryToken wwServiceDeliveryToken,
+                                         int unitsReceived) throws WPWithinGeneralException {
+            try {
+                System.out.println("event from core - onEndServiceDelivery()");
+                System.out.printf("ServiceID: %d\n", serviceID);
+                System.out.printf("UnitsReceived: %d\n", unitsReceived);
+                System.out.printf("SDT.Key: %s\n", wwServiceDeliveryToken.getKey());
+                System.out.printf("SDT.Expiry: %s\n", wwServiceDeliveryToken.getExpiry());
+                System.out.printf("SDT.Issued: %s\n", wwServiceDeliveryToken.getIssued());
+                System.out.printf("SDT.Signature: %s\n", wwServiceDeliveryToken.getSignature());
+                System.out.printf("SDT.RefundOnExpiry: %b\n", wwServiceDeliveryToken.isRefundOnExpiry());
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDiscoveryEvent(String remoteAddr) throws WPWithinGeneralException {
+            System.out.printf("Event: onServiceDiscovery(remoteAddr:%s)\n", remoteAddr);
+
+        }
+
+        @Override
+        public void onServicePricesEvent(String remoteAddr, int serviceId) throws WPWithinGeneralException {
+            System.out.printf("Event: onServicePricesPresent(remoteAddr:%s, serviceId:%d)\n", remoteAddr, serviceId);
+        }
+
+        @Override
+        public void onServiceTotalPriceEvent(String remoteAddr, int serviceId, WWTotalPriceResponse t)
+                throws WPWithinGeneralException {
+            System.out.printf("Event: onServiceTotalPriceEvent(remoteAddr:%s, serviceId:%d)\n", remoteAddr, serviceId);
+            System.out.printf("\t(clientId:%d, currentCode:%s, merchantClientKey:%s, paymentReferenceId:%s, serverId:%s, totalPrice:%d, unitsToSupply:%d, priceId:%d",
+                    t.getClientId(), t.getCurrencyCode(), t.getMerchantClientKey(), t.getPaymentReferenceId(),
+                    t.getServerId(), t.getTotalPrice(), t.getUnitsToSupply(), t.getPriceId());
+        }
+
+        @Override
+        public void onMakePaymentEvent(int totalPrice, String orderCurrency, String clientToken,
+                                       String orderDescription, String uuid) throws WPWithinGeneralException {
+            System.out.printf("Event: onMakePayment(totalPrice:%d, orderCurrency:%s, clientToken:%s, orderDescription:%s, uuid:%s\n",
+                    totalPrice, orderCurrency, clientToken, orderDescription, uuid);
+        }
+
+        @Override
+        public void onErrorEvent(String msg) throws WPWithinGeneralException {
+            System.out.printf("Event: onError: %s\n", msg);
+        }
+    };
+
 }
