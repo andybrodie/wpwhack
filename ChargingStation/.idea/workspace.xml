@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13de8f72-6f59-4301-bd2f-6e3157adea18" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EBike/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/BikeConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../EBike/src/main/resources/ebike.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sdk-v0.10-alpha.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sdk-v0.10-alpha.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/wpwhack/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/wpwhack/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sample-producer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chargingStation.sh" beforeDir="false" afterPath="$PROJECT_DIR$/chargingStation.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/BikeConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/BikeConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../EBike/src/main/java/wpwhack/ebike/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../EBike/src/main/resources/ebike.json" beforeDir="false" afterPath="$PROJECT_DIR$/../EBike/src/main/resources/ebike.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -29,32 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Program.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/wpwhack/Program.java">
+      <file leaf-file-name="chargingStation.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chargingStation.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WPWithinWrapperImpl.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/com/worldpay/innovation/wpw-sdk-java/sdk/v0.10-alpha/sdk-v0.10-alpha.jar!/com/worldpay/innovation/wpwithin/WPWithinWrapperImpl.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="164" selection-start-line="164" selection-end-line="164" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state>
+              <caret column="88" selection-start-column="88" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -103,6 +74,7 @@
         <option value="$PROJECT_DIR$/src/main/java/wpwhack/CallbackHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/wpwhack/Program.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/chargingStation.sh" />
       </list>
     </option>
   </component>
@@ -141,38 +113,6 @@
               <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChargingStation" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChargingStation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChargingStation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChargingStation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="wpwhack" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChargingStation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChargingStation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -379,16 +319,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/wpwhack/Program.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="36" lean-forward="true" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/wpwhack/ChargingStation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -734,6 +664,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="59" lean-forward="true" selection-start-line="17" selection-start-column="59" selection-end-line="17" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/worldpay/innovation/wpw-sdk-java/sdk/v0.10-alpha/sdk-v0.10-alpha.jar!/com/worldpay/innovation/wpwithin/WPWithinWrapperImpl.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -751,10 +688,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/chargingStation.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        <state>
+          <caret column="88" selection-start-column="88" selection-end-column="88" />
         </state>
       </provider>
     </entry>
