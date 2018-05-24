@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -36,11 +37,15 @@ public class Program {
         loadConfig();
 
         new Program().go(stationNo);
-
     }
 
     private void go(int stationNo) throws Exception {
         // Hire service never changes and never needs to be regenerated.
+        //InputStream stream = Config.class.getResourceAsStream("/electricityService.json");
+        //List<WWService> services = new ServiceCreator().fromJson(stream);
+
+        //services.stream().filter(t -> t.getName()=="Charging Service")
+
         if (stationNo == 1) {
             elecService = createElectricityService(GRID_PRICE, 50);
         } else {
@@ -52,7 +57,7 @@ public class Program {
         mainLoop(stationNo);
     }
 
-    private  WPWithinWrapper createWrapper(int stationNo, WWService hireService, WWService elecService) {
+    private WPWithinWrapper createWrapper(int stationNo, WWService hireService, WWService elecService) {
         WPWithinWrapper wpw = new WPWithinWrapperImpl(config.getHost(), config.getPort() + (stationNo * 10), true,
                 wpWithinEventListener, config.getPort() + 1,
                 rpcAgentListener, rpcLogFile);
@@ -130,22 +135,6 @@ public class Program {
         HashMap<Integer, WWPrice> prices = new HashMap<>(1);
 
         WWPrice ccPrice = addPrice(1, "Bike Charge", "1 bike", 1, 10, "GBP");
-        prices = new HashMap<>(1);
-        prices.put(ccPrice.getId(), ccPrice);
-        svc.setPrices(prices);
-
-        return svc;
-    }
-
-    private WWService createDistanceService() {
-        WWService svc = createService("Standing Charge",
-                "Bike Standing charge",
-                2,
-                "Bike hire");
-
-        HashMap<Integer, WWPrice> prices = new HashMap<>(1);
-
-        WWPrice ccPrice = addPrice(1, "Standing Charge", "1 kilometer", 1, 1, "GBP");
         prices = new HashMap<>(1);
         prices.put(ccPrice.getId(), ccPrice);
         svc.setPrices(prices);
@@ -269,7 +258,7 @@ public class Program {
         public void onServiceTotalPriceEvent(String remoteAddr, int serviceId, WWTotalPriceResponse t)
                 throws WPWithinGeneralException {
             System.out.printf("Event: onServiceTotalPriceEvent(remoteAddr:%s, serviceId:%d)\n", remoteAddr, serviceId);
-            System.out.printf("\t(clientId:%d, currentCode:%s, merchantClientKey:%s, paymentReferenceId:%s, serverId:%s, totalPrice:%d, unitsToSupply:%d, priceId:%d",
+            System.out.printf("\t(clientId:sd, currentCode:%s, merchantClientKey:%s, paymentReferenceId:%s, serverId:%s, totalPrice:%d, unitsToSupply:%d, priceId:%d",
                     t.getClientId(), t.getCurrencyCode(), t.getMerchantClientKey(), t.getPaymentReferenceId(),
                     t.getServerId(), t.getTotalPrice(), t.getUnitsToSupply(), t.getPriceId());
         }

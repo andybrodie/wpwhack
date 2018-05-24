@@ -1,0 +1,37 @@
+{
+  "deviceName": "TEAM3CS1",
+  "services": [
+    {
+      "name": "Hire Charge",
+      "description": "Pay to hire a bike from this charging service",
+      "serviceType": "Bike Hire",
+      "prices": [
+        {
+          "description": "Bike Charge",
+          "unitDescription": "Single bike",
+          "amount": "10",
+          "currencyCode": "GBP"
+        }
+      ]
+    },
+    {
+      "name": "Charging Service",
+      "description": "Provide electricity to charge a battery",
+      "serviceType": "Electricity Provision",
+      "prices": [
+        {
+          "description": "Kilowatt-hour from the National Grid",
+          "unitDescription": "1 kWh",
+          "amount": "100",
+          "currencyCode": "GBP"
+        },
+        {
+          "description": "Kilowatt-hour from the Solar Cell",
+          "unitDescription": "1 kWh",
+          "amount": "50",
+          "currencyCode": "GBP"
+        }
+      ]
+    }
+  ]
+}
